@@ -35,25 +35,25 @@ Settings
 Available settings, see extended_shell/settings.py
 ::
   
-  # Enable or disable import colors (Default: True)
-  EXTENDED_SHELL_COLORED = True
+    # Enable or disable import colors (Default: True)
+    EXTENDED_SHELL_COLORED = True
 
-  # Import models from INSTALLED_APPS (Default: True)
-  EXTENDED_SHELL_IMPORT_APPS_MODELS = True
+    # Import models from INSTALLED_APPS (Default: True)
+    EXTENDED_SHELL_IMPORT_APPS_MODELS = True
 
-  # List of custom user modules
-  EXTENDED_SHELL_IMPORTS = []
+    # List of custom user modules
+    EXTENDED_SHELL_IMPORTS = []
 
-  # List of usefull django utils
-  EXTENDED_SHELL_DEFAULTS = [
-    'django.conf.settings',
-    'django.core.cache.cache',
-    'django.utils.timezone',
-    'django.db.models.Avg',
-    'django.db.models.Count',
-    'django.db.models.F',
-    'django.db.models.Q',
-    'django.db.models.Max',
-    'django.db.models.Min',
-    'django.db.models.Sum'
-  ]
+    # List of usefull django utils
+    EXTENDED_SHELL_DEFAULTS = [
+        'django.conf.settings',
+        'django.core.cache.cache',
+        'django.utils.timezone',
+        'django.db.models.Avg',
+        'django.db.models.Count',
+        'django.db.models.F',
+        'django.db.models.Q',
+        'django.db.models.Max',
+        'django.db.models.Min',
+        'django.db.models.Sum'
+    ]

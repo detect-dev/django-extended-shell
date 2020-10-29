@@ -5,7 +5,7 @@ with open("README.rst", "r") as fh:
 
 setuptools.setup(
     name="django-extended-shell",
-    version="0.0.2",
+    version="0.0.3",
     author="Dmitry Bobrovitsky",
     author_email="detect.dev@gmail.com",
     description="Django shell with imported models",

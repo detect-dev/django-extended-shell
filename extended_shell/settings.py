@@ -1,6 +1,6 @@
 from django.conf import settings
 
-# Enabled/Disabled colors
+# Enable / Disable colors
 EXTENDED_SHELL_COLORED = getattr(
     settings, 'EXTENDED_SHELL_COLORED', True)
 

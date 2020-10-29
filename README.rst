@@ -6,6 +6,10 @@ django-extended-shell
     :target: https://pypi.python.org/pypi/django-extended-shell/
     :alt: Latest PyPI version
 
+.. image:: https://img.shields.io/pypi/wheel/django-extended-shell.svg
+    :target: https://pypi.python.org/pypi/django-extended-shell/
+    :alt: Supports Wheel format
+
 A tiny application that import models from INSTALLED_APPS when `manage.py shell` command called.
 
 

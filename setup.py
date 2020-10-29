@@ -1,15 +1,15 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("README.rst", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="django-extended-shell",
-    version="0.0.1",
+    version="0.0.2",
     author="Dmitry Bobrovitsky",
     author_email="detect.dev@gmail.com",
-    description="django shell with importded models",
-    long_description="import models from INSTALLED_APPS to standard django shell command", # noqa
+    description="Django shell with imported models",
+    long_description="A tiny application that import models from INSTALLED_APPS when `manage.py shell` command called.", # noqa
     long_description_content_type="text/markdown",
     url="https://github.com/detect-dev/django-extended-shell",
     packages=['extended_shell'],

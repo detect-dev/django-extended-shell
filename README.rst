@@ -4,7 +4,7 @@ django-extended-shell
 ===================
 
 .. image:: https://badge.fury.io/py/django-extended-shell.svg
-    :target: https://badge.fury.io/py/django-extended-shell.svg
+    :target: https://badge.fury.io/py/django-extended-shell
 
 A tiny application that import models from INSTALLED_APPS when `manage.py shell` command called.
 

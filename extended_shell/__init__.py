@@ -1,10 +1,61 @@
+
+import sys
 from importlib import import_module
+from django.core.management.base import OutputWrapper
+from django.core.management.color import color_style
+from . import settings
 
 default_app_config = 'extended_shell.apps.ExtendedShellConfig'
 
+style = color_style(
+    settings.EXTENDED_SHELL_COLORED
+)
 
-def extra_import(pathes):
-    values = {}
+term = OutputWrapper(
+    sys.stdout
+)
+
+
+def show_modules(modules):
+    imports = {}
+
+    for module in modules:
+        if isinstance(module, str):
+            try:
+                module, name = module.rsplit('.', 1)
+            except ValueError:
+                name = None
+        else:
+            try:
+                name = module.__name__
+                module = module.__module__
+            except Exception:
+                continue
+
+        imports.setdefault(
+            module, [])
+
+        if name is not None:
+            imports[module].append(name)
+
+    relative, fixed = [], []
+
+    for module, names in imports.items():
+        names = ', '.join(names)
+
+        if names:
+            relative.append('from {} import {}'.format(
+                module, names))
+        else:
+            fixed.append('import {}'.format(
+                module))
+
+    for line in fixed + relative:
+        term.write(style.SUCCESS(line))
+
+
+def load_modules(pathes):
+    imports = {}
 
     for path in pathes:
         module_path = key = path
@@ -14,12 +65,10 @@ def extra_import(pathes):
         except ValueError:
             pass
 
-        try:
-            module = import_module(module_path)
-        except ModuleNotFoundError:
-            module = import_module(path)
+        module = import_module(
+            module_path)
 
-        values[key] = getattr(
+        imports[key] = getattr(
             module, key, module)
 
-    return values
+    return imports

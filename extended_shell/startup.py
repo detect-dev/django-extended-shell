@@ -4,6 +4,18 @@ from extended_shell import settings as conf
 from extended_shell import show_modules, term
 
 
+if conf.EXTENDED_SHELL_DEFAULTS:
+    term.write('# Extended shell django imports')
+    modules = conf.EXTENDED_SHELL_DEFAULTS
+
+    locals().update(
+        load_modules(modules))
+
+    show_modules(
+        modules
+    )
+
+
 if conf.EXTENDED_SHELL_IMPORT_APPS_MODELS:
     term.write('# Extended shell model imports')
     models = apps.get_models()
@@ -15,17 +27,6 @@ if conf.EXTENDED_SHELL_IMPORT_APPS_MODELS:
 
     show_modules(
         models
-    )
-
-if conf.EXTENDED_SHELL_DEFAULTS:
-    term.write('# Extended shell django imports')
-    modules = conf.EXTENDED_SHELL_DEFAULTS
-
-    locals().update(
-        load_modules(modules))
-
-    show_modules(
-        modules
     )
 
 if conf.EXTENDED_SHELL_IMPORTS:

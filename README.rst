@@ -1,7 +1,7 @@
 
-===================
+======================
 django-extended-shell
-===================
+======================
 
 .. image:: https://badge.fury.io/py/django-extended-shell.svg
     :target: https://badge.fury.io/py/django-extended-shell
@@ -27,3 +27,13 @@ To enable `django-extended-shell` in your project you need to add it to `INSTALL
         'extended_shell',
         ...
     )
+
+
+Settings
+=============
+Available settings::
+
+    EXTENDED_SHELL_COLORED = False # Disable terminal colors
+    EXTENDED_SHELL_IMPORT_APPS_MODELS = False # Disable app models import
+    EXTENDED_SHELL_DEFAULTS = [] # Disable default utils import
+    EXTENDED_SHELL_IMPORTS = [] # Add custom imports

@@ -6,12 +6,12 @@ django-extended-shell
 .. image:: https://badge.fury.io/py/django-extended-shell.svg
     :target: https://badge.fury.io/py/django-extended-shell.svg
 
-Import models from INSTALLED_APPS to standard django shell command
+Tiny application that import models from INSTALLED_APPS when `manage.py shell` command is called.
 
 
 Getting It
 ==========
-You can get Django Extensions by using pip::
+You can get django-extended-shell by using pip::
 
     $ pip install django-extended-shell
 
@@ -24,6 +24,6 @@ To enable `django-extended-shell` in your project you need to add it to `INSTALL
 
     INSTALLED_APPS = (
         ...
-        'django_extended-shell',
+        'extended_shell',
         ...
     )

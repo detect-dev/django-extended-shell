@@ -1,7 +1,10 @@
 from django.apps import apps
-from extended_shell import load_modules
 from extended_shell import settings as conf
-from extended_shell import show_modules, term
+from extended_shell import (
+    show_modules,
+    load_modules,
+    term
+)
 
 
 if conf.EXTENDED_SHELL_DEFAULTS:

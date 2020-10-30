@@ -1,5 +1,6 @@
 
 import sys
+from collections import namedtuple
 from importlib import import_module
 from django.core.management.base import OutputWrapper
 from django.core.management.color import color_style
@@ -15,42 +16,81 @@ term = OutputWrapper(
     sys.stdout
 )
 
+Import = namedtuple('Import', [
+    'module',
+    'name',
+    'alias'
+])
+
+
+def parse_import(path):
+    try:
+        path, alias = path.rsplit(' as ', 1)
+        alias = alias.strip()
+
+    except ValueError:
+        alias = None
+
+    module_path = name = path
+
+    try:
+        module_path, name = path.rsplit('.', 1)
+    except ValueError:
+        pass
+
+    return Import(
+        module_path.strip(),
+        name.strip(),
+        alias
+    )
+
 
 def show_modules(modules):
     imports = {}
+    strings = []
 
     for module in modules:
         if isinstance(module, str):
-            try:
-                module, name = module.rsplit('.', 1)
-            except ValueError:
-                name = None
+            data = parse_import(module)
         else:
             try:
-                name = module.__name__
-                module = module.__module__
-            except Exception:
+                data = Import(
+                    module.__module__,
+                    module.__name__,
+                    None
+                )
+
+            except AttributeError:
                 continue
 
-        imports.setdefault(
-            module, [])
+        name = (
+            data.module or
+            repr(data)
+        )
 
-        if name is not None:
-            imports[module].append(name)
+        imports.setdefault(name, [])
+        imports[name].append(data)
 
-    relative, fixed = [], []
+    for module, datas in imports.items():
+        tmpl = 'from {path} import {modules}'
 
-    for module, names in imports.items():
-        names = ', '.join(names)
+        modules = []
+        for data in datas:
+            if not data.module:
+                tmpl = 'import {modules}'
 
-        if names:
-            relative.append('from {} import {}'.format(
-                module, names))
-        else:
-            fixed.append('import {}'.format(
-                module))
+            modules.append(
+                '{imp.name} as {imp.alias}'.format(imp=data)
+                if data.alias else data.name
+            )
 
-    for line in fixed + relative:
+        strings.append(
+            tmpl.format(
+                path=module,
+                modules=', '.join(modules)
+            ))
+
+    for line in reversed(strings):
         term.write(style.SUCCESS(line))
 
 
@@ -58,17 +98,16 @@ def load_modules(pathes):
     imports = {}
 
     for path in pathes:
-        module_path = key = path
-
-        try:
-            module_path, key = path.rsplit('.', 1)
-        except ValueError:
-            pass
+        data = parse_import(path)
 
         module = import_module(
-            module_path)
+            data.module or data.name
+        )
 
-        imports[key] = getattr(
-            module, key, module)
+        imports[data.alias or data.name] = getattr(
+            module,
+            data.name,
+            module
+        )
 
     return imports

@@ -27,7 +27,6 @@ def parse_import(path):
     try:
         path, alias = path.rsplit(' as ', 1)
         alias = alias.strip()
-
     except ValueError:
         alias = None
 
@@ -59,7 +58,6 @@ def show_modules(modules):
                     module.__name__,
                     None
                 )
-
             except AttributeError:
                 continue
 
